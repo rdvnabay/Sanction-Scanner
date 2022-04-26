@@ -48,21 +48,21 @@ try
         product.Price = documentDetail.DocumentNode.SelectSingleNode("//div[@class='classifiedInfo ']//h3").GetDirectInnerText().Trim();
 
         counter++;
-        totalPrice += double.Parse(product.Price.Split(product.Price.Substring(product.Price.Length - 3)).First());
+        totalPrice += double.Parse(product.Price.Split(product.Price.Substring(product.Price.Length - 3)).First()); // 120.000 TL bilgisinden son 3 karakter itibaren parçalanıp ilk fiyat bilgisi alındı.
 
-        //txt dosyasına bin/debug klasörü altındadır.
-        var path = @"VitrinList.txt";
+        //txt dosyası bin/debug klasörü altında tutulmaktadır.
+        string path = Directory.GetCurrentDirectory() + "VitrinList.txt";
         using (StreamWriter file = new(path))
         {
             file.WriteLine($"İlan Adı: {product.Title} - Fiyatı:{product.Price}");
         }
 
-        Console.WriteLine(product.ToString());
-        Console.WriteLine("---------------");
-    }
+    Console.WriteLine(product.ToString());
+    Console.WriteLine("---------------");
+}
 
     var averageAmount = totalPrice / listItem.Count;
-    Console.WriteLine("Average Amount " + averageAmount);
+Console.WriteLine("Average Amount " + averageAmount);
 }
 catch (Exception)
 {
