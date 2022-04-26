@@ -24,12 +24,13 @@ var document = new HtmlDocument();
 document.LoadHtml(driver.PageSource);
 
 
-try
-{
-    // Anasayfa Vitrininde bulunan ilanlar listeye eklendi.
-    var listItem = document.DocumentNode.SelectNodes("//div[@class='uiBox showcase']//ul//li//a[@href]");
 
-    foreach (var item in listItem)
+// Anasayfa Vitrininde bulunan ilanlar listeye eklendi.
+var listItem = document.DocumentNode.SelectNodes("//div[@class='uiBox showcase']//ul//li//a[@href]");
+
+foreach (var item in listItem)
+{
+    try
     {
         var documentDetail = new HtmlDocument();
 
@@ -57,15 +58,18 @@ try
             file.WriteLine($"İlan Adı: {product.Title} - Fiyatı:{product.Price}");
         }
 
-    Console.WriteLine(product.ToString());
-    Console.WriteLine("---------------");
+        Console.WriteLine(product.ToString());
+        Console.WriteLine("---------------");
+    }
+    catch (Exception)
+    {
+        Console.WriteLine("An error occurred while importing content. Please try again");
+        continue;
+    }
 }
 
-    var averageAmount = totalPrice / listItem.Count;
+double averageAmount = totalPrice / listItem.Count;
 Console.WriteLine("Average Amount " + averageAmount);
-}
-catch (Exception)
-{
-    Console.WriteLine("An error occurred while importing content. Please try again");
-}
+
+
 
