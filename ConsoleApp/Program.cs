@@ -45,7 +45,7 @@ foreach (var item in listItem)
         driver.Navigate().GoToUrl(products[counter].Link);
         documentDetail.LoadHtml(driver.PageSource);
 
-        //Detay sayfası üzerinden fiyat bilgisi alıdnı.
+        //Detay sayfası üzerinden fiyat bilgisi alındı.
         product.Price = documentDetail.DocumentNode.SelectSingleNode("//div[@class='classifiedInfo ']//h3").GetDirectInnerText().Trim();
 
         counter++;
@@ -63,7 +63,7 @@ foreach (var item in listItem)
     }
     catch (Exception)
     {
-        Console.WriteLine("An error occurred while importing content. Please try again");
+        Console.WriteLine("An error occurred while importing content.\n");
         continue;
     }
 }
